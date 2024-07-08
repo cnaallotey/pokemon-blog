@@ -1,6 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  ssr: false,
   devtools: { enabled: true },
   modules: ['@nuxt/ui', '@nuxt/content'],
 
@@ -14,5 +13,7 @@ export default defineNuxtConfig({
         require('@tailwindcss/typography'),
       ]
     }
-  }
+  },
+
+  compatibilityDate: '2024-07-07'
 })

@@ -1,23 +1,16 @@
 <script setup>
-const { page } = useRoute().query;
-const currentPage = ref(1);
+const route = useRoute()
+const currentPage = computed(() => parseInt(route.query.page) || 1);
 const limit = ref(3);
 
-onMounted(() => {
-  currentPage.value = page ? parseInt(page) : 1;
-});
-
-const { data:blog } = await useAsyncData("blog", () => 
+const { data:blog, refresh } = await useAsyncData("blog", () => 
     queryContent("/blog")
-    .skip((parseInt(page) - 1) * limit.value)
+    .skip((currentPage.value - 1) * limit.value)
     .limit(limit.value)
     .find()
 )
 
-const  goToPage = async (page) => {
-  currentPage.value = page;
- useRouter().push(`/?page=${page}`);
-};
+watch(() => route.query, () => refresh())
 </script>
 
 <template>
@@ -48,6 +41,6 @@ const  goToPage = async (page) => {
         </template>
       </UCard>
     </div>
-    <Pagination v-bind="{ currentPage, limit }" @goToPage="(page) => goToPage(page)" />
+    <Pagination v-bind="{ currentPage, limit }" />
   </div>
 </template>
