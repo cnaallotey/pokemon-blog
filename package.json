@@ -14,11 +14,11 @@
     "@nuxt/image": "^1.7.0",
     "@nuxt/ui": "^2.16.0",
     "@tailwindcss/typography": "^0.5.13",
-    "nuxt": "^3.11.2",
+    "nuxt": "^3.16.0",
     "vue": "^3.3.8",
     "vue-router": "^4.2.5"
   },
   "dependencies": {
-    "@nuxt/content": "^2.12.1"
+    "@nuxt/content": "^3.3.0"
   }
 }

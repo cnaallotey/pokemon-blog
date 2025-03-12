@@ -3,11 +3,12 @@ const route = useRoute()
 const currentPage = computed(() => parseInt(route.query.page) || 1);
 const limit = ref(3);
 
-const { data:blog, refresh } = await useAsyncData("blog", () => 
-    queryContent("/blog")
+const { data: blog, refresh } = await useAsyncData("blog", () =>
+  queryCollection("content")
+    .where('path', 'LIKE', '/blog%')
     .skip((currentPage.value - 1) * limit.value)
     .limit(limit.value)
-    .find()
+    .all()
 )
 
 watch(() => route.query, () => refresh())
@@ -34,7 +35,7 @@ watch(() => route.query, () => refresh())
         <p class="mt-4 font-medium text-gray-500">{{ item.description }}</p>
         <template #footer>
           <ULink
-            :to="item._path"
+            :to="item.path"
             class="hover:underline text-blue-500 hover:text-blue-500"
             >Read More</ULink
           >

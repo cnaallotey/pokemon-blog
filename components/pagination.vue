@@ -10,7 +10,9 @@ const props = defineProps({
     }
 })
 
-const allArticles = await queryContent('blog').count()
+const allArticles = await queryCollection('content')
+  .where('path', 'LIKE', '/blog%')
+  .count()
 
 const totalPages = computed(() => Math.ceil(allArticles / props.limit));
 </script>
